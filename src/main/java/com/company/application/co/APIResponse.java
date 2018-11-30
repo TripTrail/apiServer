@@ -1,10 +1,18 @@
 package com.company.application.co;
 
+import static com.company.application.constants.Constant.*;
+
 public class APIResponse<T> {
 
     private boolean status;
     private String message;
     private T data;
+
+    public APIResponse(T data){
+        this.data = data;
+        this.status = true;
+        this.message = SUCCESS_MESSAGE;
+    }
 
     public boolean isStatus() {
         return status;
