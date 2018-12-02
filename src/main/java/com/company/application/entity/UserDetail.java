@@ -10,14 +10,14 @@ import java.util.UUID;
 
 @Entity
 @Table
-public class UserDetail {
+public class UserDetail extends Auditable<String>{
     @Id
     @GeneratedValue
     private UUID userId;
     private String firstName;
     private String lastName;
     private String middleName;
-    private Gender gender;
+    private String gender;
     private String emailId;
     private String password;
 
@@ -53,11 +53,11 @@ public class UserDetail {
         this.middleName = middleName;
     }
 
-    public Gender getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(Gender gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 

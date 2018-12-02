@@ -6,10 +6,13 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @Configuration
-public class ValidationConfig {
+@EnableJpaAuditing(auditorAwareRef = AUDITOR_AWARE)
+public class SpringConfig {
 
     @Bean
     public MessageSource messageSource() {
@@ -25,6 +28,11 @@ public class ValidationConfig {
         LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
         bean.setValidationMessageSource(messageSource());
         return bean;
+    }
+
+    @Bean
+    public AuditorAware<String> auditorAware(){
+        return new AuditorAwareImpl();
     }
 
 }

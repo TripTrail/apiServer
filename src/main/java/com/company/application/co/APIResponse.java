@@ -8,10 +8,21 @@ public class APIResponse<T> {
     private String message;
     private T data;
 
+    public APIResponse(){
+        this.status = true;
+        this.message = SUCCESS_MESSAGE;
+    }
+
     public APIResponse(T data){
         this.data = data;
         this.status = true;
         this.message = SUCCESS_MESSAGE;
+    }
+
+    public APIResponse(boolean status, String message, T data){
+        this.status = status;
+        this.message  = message;
+        this.data = data;
     }
 
     public boolean isStatus() {

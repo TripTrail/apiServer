@@ -1,9 +1,11 @@
 package com.company.application.co;
 
-import static com.company.application.constants.ValidationConstants.*;
 import com.company.application.enums.Gender;
+import com.company.application.validation.EnumValidator;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import static com.company.application.constants.ValidationConstants.*;
 
 public class RegistrationDetailsCO {
 
@@ -23,7 +25,8 @@ public class RegistrationDetailsCO {
     private String middleName;
 
     @NotEmpty(message = GENDER_MANDATORY)
-    private Gender gender;
+    @EnumValidator(enumClass = Gender.class, message = GENDER_INVALID)
+    private String gender;
 
     public String getEmailId() {
         return emailId;
@@ -65,11 +68,11 @@ public class RegistrationDetailsCO {
         this.middleName = middleName;
     }
 
-    public Gender getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(Gender gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 

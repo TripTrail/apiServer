@@ -14,4 +14,3 @@ public class BootStrap {
         SpringApplication.run(BootStrap.class);
     }
 }
-
