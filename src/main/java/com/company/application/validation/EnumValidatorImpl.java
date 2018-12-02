@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class EnumValidatorImpl implements ConstraintValidator<EnumValidator, String> {
+class EnumValidatorImpl implements ConstraintValidator<EnumValidator, String> {
 
-    List<String> valueList = null;
+    private List<String> valueList = null;
 
     @Override
     public void initialize(EnumValidator constraintAnnotation) {
@@ -26,10 +26,7 @@ public class EnumValidatorImpl implements ConstraintValidator<EnumValidator, Str
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        if(!valueList.contains(value.toUpperCase())){
-            return false;
-        }
-        return true;
+        return valueList.contains(value.toUpperCase());
     }
 
 }

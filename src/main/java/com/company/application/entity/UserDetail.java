@@ -1,7 +1,5 @@
 package com.company.application.entity;
 
-import com.company.application.enums.Gender;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

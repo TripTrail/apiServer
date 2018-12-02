@@ -15,7 +15,7 @@ import static com.company.application.constants.Constant.NULL;
 import static java.lang.Boolean.FALSE;
 
 @ControllerAdvice
-public class GlobalExceptionHandler {
+class GlobalExceptionHandler {
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<APIResponse> handleApplicationException(RuntimeException ex){
@@ -28,9 +28,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<APIResponse> handleValidationException(ValidationException ex){
         ValidationMessageCO validationMessageCO = new ValidationMessageCO();
         List<String> errorMessages = new ArrayList<>();
-        ex.getErrorMessages().forEach(fieldError -> {
-            errorMessages.add(fieldError.getDefaultMessage());
-        });
+        ex.getErrorMessages().forEach(fieldError -> errorMessages.add(fieldError.getDefaultMessage()));
         validationMessageCO.setValidationErrors(errorMessages);
         APIResponse<ValidationMessageCO> response = new APIResponse<>(
                 FALSE, validationMessageCO.getValidationErrors().get(0), validationMessageCO);

@@ -26,6 +26,7 @@ public class PublicController {
     @RequestMapping(value = API_USER_REGISTRATION_URL, method = RequestMethod.POST)
     public APIResponse registerNewUser(@RequestBody @Valid RegistrationDetailsCO registrationDetailsCO,
                                        BindingResult result) throws ValidationException {
+
         if (result.hasErrors()) {
             throw new ValidationException(result.getFieldErrors());
         }
