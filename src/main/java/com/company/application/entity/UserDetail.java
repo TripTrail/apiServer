@@ -1,5 +1,6 @@
 package com.company.application.entity;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -8,7 +9,10 @@ import java.util.UUID;
 
 @Entity
 @Table
-public class UserDetail extends Auditable<String>{
+public class UserDetail extends Auditable<String> implements Serializable{
+
+    private static final long serialVersionUID = -3495070643793826541L;
+
     @Id
     @GeneratedValue
     private UUID userId;

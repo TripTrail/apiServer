@@ -1,3 +1,4 @@
+# Spring Database Configuration
 spring:
   jpa:
     database: POSTGRESQL
@@ -9,4 +10,16 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/tripdb
     username: postgres
-    password: locked
+    password: admin
+
+#OAuth 2 Configuration
+security:
+  oauth2:
+    client:
+      client-id: TT_CLIENT_ID
+      client-secret: TT_CLIENT_SECRET
+      authorized-grant-types: password, refresh_token
+      scope: read, write, trust
+      access-token-validity-seconds: 3600
+      refresh-token-validity-seconds: 315360000
+
