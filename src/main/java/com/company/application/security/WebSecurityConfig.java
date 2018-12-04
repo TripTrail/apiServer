@@ -1,5 +1,9 @@
 package com.company.application.security;
 
+import static com.company.application.constants.Constant.ALL_PUBLIC_URL_PATTERN;
+import static com.company.application.constants.Constant.ALL_URL_PATTERN;
+import static com.company.application.constants.Constant.OAUTH_TOKEN_URL;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,13 +41,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     http.csrf().disable()
         .authorizeRequests()
         .anyRequest().authenticated()
-        .antMatchers(HttpMethod.OPTIONS, "/oauth/token").permitAll();
+        .antMatchers(HttpMethod.OPTIONS, OAUTH_TOKEN_URL).permitAll();
   }
 
   @Override
   public void configure(WebSecurity web) throws Exception {
-    web.ignoring().antMatchers( "/api/public/**");
-    web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
+    web.ignoring().antMatchers(ALL_PUBLIC_URL_PATTERN);
+    web.ignoring().antMatchers(HttpMethod.OPTIONS, ALL_URL_PATTERN);
   }
 
 

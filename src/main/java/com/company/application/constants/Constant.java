@@ -22,4 +22,8 @@ public class Constant {
   public final static String OAUTH_CLIENT_SCOPE = "${security.oauth2.client.scope}";
   public final static String OAUTH_CLIENT_ACCESS_TOKEN_VALIDITY = "${security.oauth2.client.access-token-validity-seconds}";
   public final static String OAUTH_CLIENT_REFRESH_TOKEN_VALIDITY = "${security.oauth2.client.refresh-token-validity-seconds}";
+
+  public final static String OAUTH_TOKEN_URL = "/oauth/token";
+  public final static String ALL_URL_PATTERN = "/**";
+  public final static String ALL_PUBLIC_URL_PATTERN = "/api/public/**";
 }
