@@ -1,9 +1,17 @@
 package com.company.application.security;
 
+import static com.company.application.constants.Constant.AUTH_EMAIL_INVAID;
+import static com.company.application.constants.Constant.AUTH_EMAIL_MANDATORY;
+import static com.company.application.constants.Constant.AUTH_PASSWORD_INVALID;
+import static com.company.application.constants.Constant.AUTH_PASSWORD_MANDATORY;
+import static com.company.application.constants.Constant.USER_AUTHORITY;
+
+import com.company.application.config.MessageHelper;
 import com.company.application.entity.UserDetail;
 import com.company.application.exception.GenericException;
 import com.company.application.repository.UserRepository;
 import java.util.Arrays;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,34 +31,34 @@ public class AuthProvider implements AuthenticationProvider {
   @Autowired
   private PasswordEncoder passwordEncoder;
 
+  @Autowired
+  private MessageHelper messageHelper;
+
   @Override
   public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-    String email = authentication.getPrincipal() != null ? authentication.getPrincipal().toString(): null;
-    String password = authentication.getCredentials() != null ? authentication.getCredentials().toString() : null;
+    String email = Optional.ofNullable(authentication.getPrincipal())
+        .orElseThrow(() -> new GenericException(messageHelper.getMessage(AUTH_EMAIL_MANDATORY)))
+        .toString();
+    String password = Optional.ofNullable(authentication.getCredentials())
+        .orElseThrow(() -> new GenericException(messageHelper.getMessage(AUTH_PASSWORD_MANDATORY)))
+        .toString();
 
-    UserDetail userDetail = null;
     try {
-      if(email == null || password == null || email.length() == 0 || password.length() == 0) {
-        throw new GenericException("Email Id or Password in Missing!");
-      }else{
-        userDetail = userRepository.findByEmailId(email);
-        if(userDetail == null){
-          throw new GenericException("Email Password Mismatch");
-        }else {
-          if(!passwordEncoder.matches(password, userDetail.getPassword())){
-            throw new GenericException("Invalid Password");
-          }
-          final UsernamePasswordAuthenticationToken token =
-              new UsernamePasswordAuthenticationToken(userDetail.getUserId(), password,
-                  Arrays.asList(
-                      new SimpleGrantedAuthority("USER")
-                  ));
-          token.setDetails(userDetail);
-          return token;
-        }
-      }
+      UserDetail userDetail = Optional.ofNullable(userRepository.findByEmailId(email))
+          .orElseThrow(() -> new GenericException(messageHelper.getMessage(AUTH_EMAIL_INVAID)));
 
-    }catch(OAuth2Exception e){
+      if (!passwordEncoder.matches(password, userDetail.getPassword())) {
+        throw new GenericException(messageHelper.getMessage(AUTH_PASSWORD_INVALID));
+      }
+      final UsernamePasswordAuthenticationToken token =
+          new UsernamePasswordAuthenticationToken(userDetail.getUserId(), password,
+              Arrays.asList(
+                  new SimpleGrantedAuthority(USER_AUTHORITY)
+              ));
+      token.setDetails(userDetail);
+      return token;
+
+    } catch (OAuth2Exception e) {
       throw new GenericException(e.getMessage());
     }
 

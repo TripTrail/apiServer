@@ -1,5 +1,7 @@
 package com.company.application.security;
 
+import com.company.application.co.APIResponse;
+import com.company.application.exception.GenericException;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -8,6 +10,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
@@ -74,7 +79,11 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
   public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
     endpoints
         .tokenStore(tokenStore())
-        .authenticationManager(authenticationManager);
+        .authenticationManager(authenticationManager)
+        .exceptionTranslator(exception -> {
+          APIResponse<String> response = new APIResponse<>(false, exception.getMessage(), null);
+          return new ResponseEntity(response, HttpStatus.OK);
+        });
   }
 
   @Bean

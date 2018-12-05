@@ -10,7 +10,6 @@ public class Constant {
   public final static String ADMIN_USER = "Admin";
 
   public final static String NULL = null;
-  public final static String INTERNAL_SERVER_ERROR = "Something Went Wrong! Please try again later.";
 
   public final static String AUTH_MANAGER_BEAN = "authenticationManagerBean";
   public final static String DATASOURCE = "dataSource";
@@ -26,4 +25,13 @@ public class Constant {
   public final static String OAUTH_TOKEN_URL = "/oauth/token";
   public final static String ALL_URL_PATTERN = "/**";
   public final static String ALL_PUBLIC_URL_PATTERN = "/api/public/**";
+
+  public final static String USER_AUTHORITY = "USER";
+
+  public final static String AUTH_EMAIL_MANDATORY = "auth.email.mandatory";
+  public final static String AUTH_EMAIL_INVAID = "auth.email.invalid";
+  public final static String AUTH_PASSWORD_MANDATORY = "auth.password.mandatory";
+  public final static String AUTH_PASSWORD_INVALID = "auth.password.invalid";
+
+  public final static String INTERNAL_SERVER_ERROR = "internal.server.error";
 }
