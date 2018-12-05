@@ -10,9 +10,9 @@ import com.company.application.service.RegistrationService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -22,7 +22,7 @@ public class PublicController {
     @Autowired
     private RegistrationService registrationService;
 
-    @RequestMapping(value = API_PUBLIC_USER_REGISTRATION_URL, method = RequestMethod.POST)
+    @PostMapping(value = API_PUBLIC_USER_REGISTRATION_URL)
     public APIResponse registerNewUser(@RequestBody @Valid RegistrationDetailsCO registrationDetailsCO,
                                        BindingResult result) throws ValidationException {
 
