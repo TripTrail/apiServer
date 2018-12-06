@@ -18,23 +18,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 
 @Configuration
 @EnableWebSecurity
-@EnableResourceServer
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-  @Autowired
-  private AuthProvider authProvider;
-
-  @Override
-  @Bean
-  public AuthenticationManager authenticationManagerBean()
-      throws Exception {
-    return super.authenticationManagerBean();
-  }
-
-  @Override
-  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    auth.authenticationProvider(authProvider);
-  }
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {

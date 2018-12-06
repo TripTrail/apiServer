@@ -5,12 +5,14 @@ import org.springframework.security.oauth2.provider.authentication.OAuth2Authent
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class UserContext {
 
-  public static String getCurrentUserId(TokenStore tokenStore){
+  public static UUID getCurrentUserId(TokenStore tokenStore){
     String token = ((OAuth2AuthenticationDetails) SecurityContextHolder.getContext().
         getAuthentication().getDetails()).getTokenValue();
-    return (String) tokenStore.readAuthentication(token).getPrincipal();
+    return (UUID) tokenStore.readAuthentication(token).getPrincipal();
   }
 }

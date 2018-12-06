@@ -1,6 +1,5 @@
 .git/
 .idea/
 .gradle/
-gradle/
 out/
 apiServer.iml
